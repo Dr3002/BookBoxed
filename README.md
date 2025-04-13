@@ -5,6 +5,6 @@
 
 3. Acesse http://localhost:3000
 
-4. Teste os formulários de cadastro e login
+4. Teste as funções da BIBLIOTECA VIRTUAL BOOKBOXED
 
 Verifique os dados no MongoDB (via Compass ou terminal)
