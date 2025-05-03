@@ -1,16 +1,22 @@
-
-import React from 'react';
-import Register from './Register';
-import Login from './Login';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register";
+import Home from "./Home";
 
 function App() {
   return (
-    <div>
-      <h1>BookBoxed</h1>
-      <Register />
-      <Login />
-    </div>
+    <Router>
+      <nav>
+        <Link to="/">Início</Link> | <Link to="/login">Login</Link> | <Link to="/register">Cadastro</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </Router>
   );
 }
 
