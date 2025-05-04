@@ -5,7 +5,7 @@ import './Form.css';
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState(["user"]); // valor padrão
+  const [role, setRole] = useState(["user"]);
 
   const handleRegister = async (e) => {
     e.preventDefault();

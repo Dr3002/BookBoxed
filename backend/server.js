@@ -8,8 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 mongoose.connect("mongodb://localhost:27017/bookboxed", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
+//Rotas para serem verificadas no Postman ou Insomnia do backend
 const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes);
 
