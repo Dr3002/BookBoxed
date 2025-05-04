@@ -18,7 +18,7 @@ router.post("/register", async (req, res) => {
     const user = new User({
       email,
       password: hashedPassword,
-      role: role && role.length ? role : ["user"] // fallback para "user"
+      role: role && role.length ? role : ["user"] 
     });
 
     await user.save();

@@ -8,8 +8,6 @@ app.use(cors());
 app.use(express.json());
 
 mongoose.connect("mongodb://localhost:27017/bookboxed", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
 });
 
 const authRoutes = require("./routes/auth");
