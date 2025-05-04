@@ -5,7 +5,7 @@ import './Home.css';
 function Home() {
   return (
     <div className="home-container">
-      <h1>Bem-vindo ao Bookboked</h1>
+      <h1>Bem-vindo ao Bookboxed</h1>
       <p>Acesse sua conta ou cadastre-se:</p>
       <Link to="/login"><button>Login</button></Link>
       <Link to="/register">
