@@ -14,9 +14,14 @@ function Login() {
       const res = await axios.post("http://localhost:5000/api/auth/login", { email, password });
 
       const { token, role } = res.data;
-      alert(`Login realizado com sucesso!\nToken: ${token}\nrole: ${role.join(", ")}`);
-      //Navigate redireciona a página após Login
-      navigate("/dashboard");
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", JSON.stringify(role)); // importante para usar depois
+
+      if (role.includes("gerente")) {
+        navigate("/dashboard");
+      } else {
+        navigate("/"); 
+      }
     } catch (err) {
       alert("Erro no login");
     }

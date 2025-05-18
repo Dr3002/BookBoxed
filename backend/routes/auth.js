@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign(
       { userId: user._id, email: user.email, role: user.role },
-      "secreta-chave-token",
+      process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
