@@ -17,11 +17,12 @@ function Login() {
       localStorage.setItem("token", token);
       localStorage.setItem("role", JSON.stringify(role)); // importante para usar depois
 
-      if (role.includes("gerente")) {
+      if (role.includes("admin")) {
         navigate("/dashboard");
       } else {
-        navigate("/"); 
+        navigate("/");
       }
+
     } catch (err) {
       alert("Erro no login");
     }

@@ -49,6 +49,7 @@ router.post("/login", async (req, res) => {
     );
 
     res.json({ token, role: user.role });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Erro no servidor." });
