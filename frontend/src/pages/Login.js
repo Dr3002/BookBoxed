@@ -6,21 +6,22 @@ import './Form.css';
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // HOOK para redirecionar a página
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+      const res = await axios.post("http://localhost:5000/api/auth/login", {
+        email,
+        password,
+      });
 
       const { token, role } = res.data;
       localStorage.setItem("token", token);
-      localStorage.setItem("role", JSON.stringify(role)); // importante para usar depois
+      localStorage.setItem("role", role[0]); // salva como string simples
 
-      if (role.includes("admin")) {
+      if (role.includes("admin") || role.includes("user")) {
         navigate("/dashboard");
-      } else {
-        navigate("/");
       }
 
     } catch (err) {
@@ -31,8 +32,18 @@ function Login() {
   return (
     <form onSubmit={handleLogin}>
       <h2>Login</h2>
-      <input type="email" placeholder="Email" onChange={e => setEmail(e.target.value)} />
-      <input type="password" placeholder="Senha" onChange={e => setPassword(e.target.value)} />
+      <input
+        type="email"
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Senha"
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
       <button type="submit">Entrar</button>
     </form>
   );
