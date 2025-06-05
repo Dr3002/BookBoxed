@@ -29,6 +29,7 @@ OBS:## *Caso não funcione com as intruções acima tente o seguinte:* ##
 1. **Clone o repositório**
 
 git clone https://github.com/seu-usuario/BookBoxed.git
+
 cd BookBoxed
 
 2. **Instale as dependências**
@@ -40,6 +41,7 @@ npm install
 Crie um arquivo .env na raiz do projeto com:
 
 MONGO_URI=mongodb+srv://user123:senha123@bookboxed.rd9hwbm.mongodb.net/bookboxed?retryWrites=true&w=majority&appName=BookBoxed
+
 JWT_SECRET=segredobemforte123
 
 4. **Rode o servidor**
