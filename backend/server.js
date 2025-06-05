@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // Conexão com MongoDB
-mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/bookboxed", {
+mongoose.connect(process.env.MONGO_URI || "mongodb+srv://user123:<senha123>@bookboxed.rd9hwbm.mongodb.net/?retryWrites=true&w=majority&appName=BookBoxed", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
