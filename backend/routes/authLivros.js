@@ -19,7 +19,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-// Listar TODOS os livros
+// Listar TODOS os livros (pública)
 router.get("/", async (req, res) => {
   try {
     const livros = await Livro.find();
@@ -42,18 +42,22 @@ router.get("/disponiveis", async (req, res) => {
 
 // Solicitar empréstimo (usuário autenticado)
 router.post("/:id/emprestar", auth, async (req, res) => {
+  console.log("📥 Recebida requisição para empréstimo do livro:", req.params.id);
+  console.log("👤 Usuário autenticado:", req.user);
+
   try {
     const livro = await Livro.findById(req.params.id);
     if (!livro) return res.status(404).json({ message: "Livro não encontrado." });
     if (!livro.disponivel) return res.status(400).json({ message: "Livro já está emprestado." });
 
-    livro.disponivel = true;
-    livro.emprestadoPara = req.user._id;
+    livro.disponivel = false;
+    livro.emprestadoPara = req.user.id;
     await livro.save();
 
+    console.log("✅ Livro emprestado com sucesso:", livro);
     res.json({ message: "Livro emprestado com sucesso." });
   } catch (err) {
-    console.error(err);
+    console.error("❌ Erro ao emprestar o livro:", err);
     res.status(500).json({ message: "Erro ao emprestar o livro." });
   }
 });

@@ -57,7 +57,14 @@ const MeusEmprestimos = () => {
               {livro.descricao && <p>{livro.descricao}</p>}
               <button
                 onClick={() => handleDevolver(livro._id)}
-                style={{ marginTop: "10px", backgroundColor: "#f55", color: "#fff", padding: "6px 12px", border: "none", borderRadius: "4px" }}
+                style={{
+                  marginTop: "10px",
+                  backgroundColor: "#f55",
+                  color: "#fff",
+                  padding: "6px 12px",
+                  border: "none",
+                  borderRadius: "4px",
+                }}
               >
                 Devolver
               </button>
@@ -68,7 +75,6 @@ const MeusEmprestimos = () => {
     </div>
   );
 };
-
 
 const Dashboard = () => {
   const [titulo, setTitulo] = useState("");
@@ -83,14 +89,18 @@ const Dashboard = () => {
 
   const fetchLivros = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/livros", {
+      const res = await axios.get("http://localhost:5000/api/livros/disponiveis", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLivros(res.data);
     } catch (err) {
-      console.error("Erro ao buscar livros", err);
+      console.error("Erro ao buscar livros disponíveis", err);
     }
   };
+
+  useEffect(() => {
+    fetchLivros();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleEmprestar = async (livroId) => {
     try {
@@ -100,16 +110,11 @@ const Dashboard = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Livro emprestado com sucesso!");
-      // Remove o livro emprestado da lista
-      setLivros((prevLivros) => prevLivros.filter((livro) => livro._id !== livroId));
+      fetchLivros();
     } catch (err) {
       alert(err.response?.data?.message || "Erro ao pedir empréstimo.");
     }
   };
-
-  useEffect(() => {
-    fetchLivros();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
