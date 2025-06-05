@@ -1,6 +1,36 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+const MeusEmprestimos = () => {
+  const [livrosEmprestados, setLivrosEmprestados] = useState([]);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/livros/meus-emprestimos", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => setLivrosEmprestados(res.data))
+      // eslint-disable-next-line
+      .catch(() => alert("Erro ao carregar empréstimos."));
+      // eslint-disable-next-line
+  }, []);
+
+  return (
+    <div>
+      <h3>Meus Empréstimos</h3>
+      <ul>
+        {livrosEmprestados.length === 0 && <li>Você não tem livros emprestados.</li>}
+        {livrosEmprestados.map((livro) => (
+          <li key={livro._id}>
+            <strong>{livro.titulo}</strong> — {livro.autor}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 const Dashboard = () => {
   // Estados para o formulário de adicionar livros
   const [titulo, setTitulo] = useState("");
@@ -11,6 +41,9 @@ const Dashboard = () => {
   // Lista de livros disponíveis
   const [livros, setLivros] = useState([]);
 
+  // Controle para mostrar livros ou meus empréstimos
+  const [mostrarEmprestimos, setMostrarEmprestimos] = useState(false);
+
   // Pega o token e o tipo de usuário do localStorage
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -19,11 +52,9 @@ const Dashboard = () => {
   const fetchLivros = async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/livros", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-      setLivros(res.data); // atualiza o estado com os livros recebidos
+      setLivros(res.data);
     } catch (err) {
       console.error("Erro ao buscar livros", err);
     }
@@ -34,21 +65,17 @@ const Dashboard = () => {
     try {
       await axios.post(
         `http://localhost:5000/api/livros/${livroId}/emprestar`,
-        {}, // corpo vazio
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Livro emprestado com sucesso!");
-      fetchLivros(); // Atualiza a lista após empréstimo
+      fetchLivros();
     } catch (err) {
       alert(err.response?.data?.message || "Erro ao pedir empréstimo.");
     }
   };
 
-  // useEffect para buscar livros ao carregar o componente
+  // Busca os livros ao carregar o componente
   useEffect(() => {
     fetchLivros();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,18 +88,13 @@ const Dashboard = () => {
       await axios.post(
         "http://localhost:5000/api/livros",
         { titulo, autor, descricao },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-      // Limpa os campos do formulário
       setTitulo("");
       setAutor("");
       setDescricao("");
       setMensagem("Livro adicionado com sucesso.");
-      fetchLivros(); // Atualiza a lista
+      fetchLivros();
     } catch (err) {
       setMensagem(err.response?.data?.message || "Erro ao adicionar livro.");
     }
@@ -82,54 +104,68 @@ const Dashboard = () => {
     <div className="container">
       <h2>Dashboard</h2>
 
-      {/* Formulário de adicionar livro: visível apenas para administradores */}
-      {role === "admin" && (
+      {/* Botão para alternar entre livros disponíveis e meus empréstimos */}
+      <button
+        onClick={() => setMostrarEmprestimos(!mostrarEmprestimos)}
+        style={{ marginBottom: "15px" }}
+      >
+        {mostrarEmprestimos ? "Mostrar Livros Disponíveis" : "Mostrar Meus Empréstimos"}
+      </button>
+
+      {/* Se estiver mostrando os empréstimos */}
+      {mostrarEmprestimos ? (
+        <MeusEmprestimos />
+      ) : (
         <>
-          <h3>Adicionar Livro</h3>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Título"
-              value={titulo}
-              onChange={(e) => setTitulo(e.target.value)}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Autor"
-              value={autor}
-              onChange={(e) => setAutor(e.target.value)}
-              required
-            />
-            <textarea
-              placeholder="Descrição"
-              value={descricao}
-              onChange={(e) => setDescricao(e.target.value)}
-            ></textarea>
-            <button type="submit">Adicionar Livro</button>
-          </form>
-          {mensagem && <p>{mensagem}</p>}
+          {/* Formulário de adicionar livro: visível apenas para administradores */}
+          {role === "admin" && (
+            <>
+              <h3>Adicionar Livro</h3>
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  placeholder="Título"
+                  value={titulo}
+                  onChange={(e) => setTitulo(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Autor"
+                  value={autor}
+                  onChange={(e) => setAutor(e.target.value)}
+                  required
+                />
+                <textarea
+                  placeholder="Descrição"
+                  value={descricao}
+                  onChange={(e) => setDescricao(e.target.value)}
+                ></textarea>
+                <button type="submit">Adicionar Livro</button>
+              </form>
+              {mensagem && <p>{mensagem}</p>}
+            </>
+          )}
+
+          {/* Lista de livros disponíveis para todos os usuários */}
+          <h3>Livros Disponíveis</h3>
+          <ul>
+            {livros.map((livro) => (
+              <li key={livro._id}>
+                <strong>{livro.titulo}</strong> — {livro.autor}
+                {role === "user" && (
+                  <button
+                    onClick={() => handleEmprestar(livro._id)}
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Pedir emprestado
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
         </>
       )}
-
-      {/* Lista de livros disponíveis para todos os usuários */}
-      <h3>Livros Disponíveis</h3>
-      <ul>
-        {livros.map((livro) => (
-          <li key={livro._id}>
-            <strong>{livro.titulo}</strong> — {livro.autor}
-            {/* Botão "Pedir emprestado" visível apenas para usuários comuns */}
-            {role === "user" && (
-              <button
-                onClick={() => handleEmprestar(livro._id)}
-                style={{ marginLeft: "10px" }}
-              >
-                Pedir emprestado
-              </button>
-            )}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };
