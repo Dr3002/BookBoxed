@@ -47,7 +47,7 @@ router.post("/:id/emprestar", auth, async (req, res) => {
     if (!livro) return res.status(404).json({ message: "Livro não encontrado." });
     if (!livro.disponivel) return res.status(400).json({ message: "Livro já está emprestado." });
 
-    livro.disponivel = false;
+    livro.disponivel = true;
     livro.emprestadoPara = req.user._id;
     await livro.save();
 

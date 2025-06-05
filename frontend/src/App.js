@@ -4,7 +4,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
-import MeusEmprestimos from "./pages/MeusEmprestimos";
 
 
 //Rotas Principais 
@@ -20,7 +19,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/meus-emprestimos" element={<MeusEmprestimos />} />
       </Routes>
     </Router>
   );
