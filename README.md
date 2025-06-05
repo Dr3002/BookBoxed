@@ -5,9 +5,9 @@ BookBoxed é uma aplicação web de biblioteca virtual onde usuários podem visu
 Baixe a pasta .ZIP
 Descompacte e abra na sua IDE (Recomendado no VSCODE)
 
-1. Inicie o Back-end (npm start na pasta backend)
+1. Inicie o Back-end (npm start na pasta backend pelo terminal)
 
-2. Inicie o Front-end (npm start na pasta frontend)
+2. Inicie o Front-end (npm start na pasta frontend pelo terminal)
 
 3. Acesse http://localhost:3000
 
