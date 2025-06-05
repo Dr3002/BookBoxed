@@ -7,4 +7,6 @@
 
 4. Teste as funções da BIBLIOTECA VIRTUAL BOOKBOXED
 
-Verifique os dados no MongoDB (via Compass ou terminal)
+Verifique os dados no MongoDB (via Compass ou Atlas)
+
+OBS:
