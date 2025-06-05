@@ -28,7 +28,7 @@ OBS:## *Caso não funcione com as intruções acima tente o seguinte:* ##
 
 1. **Clone o repositório**
 
-git clone https://github.com/seu-usuario/BookBoxed.git
+git clone https://github.com/Dr3002/BookBoxed.git
 
 cd BookBoxed
 
