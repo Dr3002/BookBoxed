@@ -5,45 +5,40 @@ BookBoxed é uma aplicação web de biblioteca virtual onde usuários podem visu
 Baixe a pasta .ZIP
 Descompacte e abra na sua IDE (Recomendado no VSCODE)
 
-1. Inicie o Back-end (npm start na pasta backend pelo terminal)
-
-2. Inicie o Front-end (npm start na pasta frontend pelo terminal)
-
-3. Acesse http://localhost:3000
-
-4. Teste as funções da BIBLIOTECA VIRTUAL BOOKBOXED
-
-Verifique os dados no MongoDB (via Compass ou Atlas)
-
-OBS:## *Caso não funcione com as intruções acima tente o seguinte:* ##
-
 ---
 ## Verifique os Requisitos
 
 - Node.js instalado
+- MongoDB instalado (https://www.mongodb.com/try/download/community)
+- MongoDB Compass instalado para acessar Banco LOCALMENTE (https://www.mongodb.com/try/download/compass)
+- Possuir conta no MongoDB Atlas para acessar o Banco pela INTERNET/ONLINE (https://www.mongodb.com/products/platform/atlas-database)
 
 ---
 
 ## Como rodar o projeto
 
-1. **Clone o repositório**
+1.Crie um novo terminal para backend e outro para frontend e instale as dependências
 
-git clone https://github.com/Dr3002/BookBoxed.git
+  - acesse a pasta backend (cd backend) e digite "npm install"
+  - acesse a pasta frontend (cd frontend) e digite "npm install"
 
-cd BookBoxed
+2.Instale LOCALMENTE ou acesse ONLINE o MongoDB
 
-2. **Instale as dependências**
+- LOCALMENTE (copie isso no arquivo .env "mongodb://localhost:27017/bookboxed"):
+  - No MongoDB Compass adicione uma nova conexão e
+    - No campo NAME: "localhost:27017"
+    - No campo  URI copie "mongodb://localhost:27017/bookboxed"
 
-npm install
+- ONLINE: MongoDB Atlas (copie isso no arquivo .env "mongodb+srv://user123:senha123@bookboxed.rd9hwbm.mongodb.net/bookboxed?retryWrites=true&w=majority&appName=BookBoxed")
 
-3. **Configure o ambiente**
+3. Inicie o Back-end (npm start na pasta backend pelo terminal)
 
-Crie um arquivo .env na raiz do projeto com:
+4. Inicie o Front-end (npm start na pasta frontend pelo terminal) e aguarde pelo redirecionamento para a página inicial
 
-MONGO_URI=mongodb+srv://user123:senha123@bookboxed.rd9hwbm.mongodb.net/bookboxed?retryWrites=true&w=majority&appName=BookBoxed
 
-JWT_SECRET=segredobemforte123
+6. Acesse http://localhost:3000
+   
+7. Teste as funções da BIBLIOTECA VIRTUAL BOOKBOXED
 
-4. **Rode o servidor**
+Verifique os dados no MongoDB (via Compass ou Atlas)
 
-npm run dev
