@@ -10,7 +10,7 @@ Descompacte e abra na sua IDE (Recomendado no VSCODE)
 
 - Node.js instalado
 - MongoDB instalado (https://www.mongodb.com/try/download/community)
-- MongoDB Compass instalado para acessar Banco LOCALMENTE (https://www.mongodb.com/try/download/compass) [##RECOMENDADO##]
+- [##RECOMENDADO##] MongoDB Compass instalado para acessar Banco LOCALMENTE (https://www.mongodb.com/try/download/compass)
 - Possuir conta no MongoDB Atlas para acessar o Banco pela INTERNET/ONLINE (https://www.mongodb.com/products/platform/atlas-database)
 
 ---
