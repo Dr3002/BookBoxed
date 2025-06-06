@@ -10,8 +10,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Conexão com MongoDB
-mongoose.connect(process.env.MONGO_URI || "mongodb+srv://user123:<senha123>@bookboxed.rd9hwbm.mongodb.net/?retryWrites=true&w=majority&appName=BookBoxed", {
+// Conexão com MongoDB 
+//MongoDB Compass: mongodb://localhost:27017/bookboxed
+//MongoDB Atlas: mongodb+srv://user123:senha123@bookboxed.rd9hwbm.mongodb.net/bookboxed?retryWrites=true&w=majority&appName=BookBoxed
+mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/bookboxed", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const MeusEmprestimos = () => {
+const MeusEmprestimos = ({ onLivroDevolvido }) => {
   const [livrosEmprestados, setLivrosEmprestados] = useState([]);
   const token = localStorage.getItem("token");
 
@@ -28,7 +28,10 @@ const MeusEmprestimos = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Livro devolvido com sucesso!");
-      fetchEmprestimos();
+      // Remove localmente o livro devolvido para atualizar a UI sem buscar do servidor
+      setLivrosEmprestados((prev) => prev.filter((livro) => livro._id !== livroId));
+      // Comunica ao componente pai que um livro foi devolvido
+      if (onLivroDevolvido) onLivroDevolvido(livroId);
     } catch (err) {
       alert(err.response?.data?.message || "Erro ao devolver o livro.");
     }
@@ -110,10 +113,17 @@ const Dashboard = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Livro emprestado com sucesso!");
-      fetchLivros();
+      // Remove localmente o livro emprestado para atualizar a UI sem buscar do servidor
+      setLivros((prev) => prev.filter((livro) => livro._id !== livroId));
     } catch (err) {
       alert(err.response?.data?.message || "Erro ao pedir empréstimo.");
     }
+  };
+
+  // Callback para receber a devolução e atualizar a lista de livros disponíveis
+  const onLivroDevolvido = (livroId) => {
+    // Ao devolver um livro, atualizamos a lista de livros disponíveis buscando do servidor
+    fetchLivros();
   };
 
   const handleSubmit = async (e) => {
@@ -146,7 +156,7 @@ const Dashboard = () => {
       </button>
 
       {mostrarEmprestimos ? (
-        <MeusEmprestimos />
+        <MeusEmprestimos onLivroDevolvido={onLivroDevolvido} />
       ) : (
         <>
           {role === "admin" && (

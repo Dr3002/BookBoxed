@@ -42,8 +42,8 @@ router.get("/disponiveis", async (req, res) => {
 
 // Solicitar empréstimo (usuário autenticado)
 router.post("/:id/emprestar", auth, async (req, res) => {
-  console.log("📥 Recebida requisição para empréstimo do livro:", req.params.id);
-  console.log("👤 Usuário autenticado:", req.user);
+  //console.log("Recebida requisição para empréstimo do livro:", req.params.id);
+  //console.log("Usuário autenticado:", req.user);
 
   try {
     const livro = await Livro.findById(req.params.id);
@@ -51,13 +51,13 @@ router.post("/:id/emprestar", auth, async (req, res) => {
     if (!livro.disponivel) return res.status(400).json({ message: "Livro já está emprestado." });
 
     livro.disponivel = false;
-    livro.emprestadoPara = req.user.id;
+    livro.emprestadoPara = req.user.userId;
     await livro.save();
 
-    console.log("✅ Livro emprestado com sucesso:", livro);
-    res.json({ message: "Livro emprestado com sucesso." });
+    console.log("Livro emprestado com sucesso:", livro);
+    //res.json({ message: "Livro emprestado com sucesso." });
   } catch (err) {
-    console.error("❌ Erro ao emprestar o livro:", err);
+    //console.error("Erro ao emprestar o livro:", err);
     res.status(500).json({ message: "Erro ao emprestar o livro." });
   }
 });
@@ -65,7 +65,7 @@ router.post("/:id/emprestar", auth, async (req, res) => {
 // Listar livros emprestados pelo usuário logado
 router.get("/meus-emprestimos", auth, async (req, res) => {
   try {
-    const livros = await Livro.find({ emprestadoPara: req.user.id });
+    const livros = await Livro.find({ emprestadoPara: req.user.userId });
     res.json(livros);
   } catch (err) {
     console.error(err);
@@ -79,7 +79,7 @@ router.post("/:id/devolver", auth, async (req, res) => {
     const livro = await Livro.findById(req.params.id);
     if (!livro) return res.status(404).json({ message: "Livro não encontrado." });
 
-    if (!livro.emprestadoPara || livro.emprestadoPara.toString() !== req.user.id) {
+    if (!livro.emprestadoPara || livro.emprestadoPara.toString() !== req.user.userId) {
       return res.status(403).json({ message: "Você não pode devolver este livro." });
     }
 
@@ -90,7 +90,7 @@ router.post("/:id/devolver", auth, async (req, res) => {
     res.json({ message: "Livro devolvido com sucesso." });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Erro ao devolver o livro." });
+    //res.status(500).json({ message: "Erro ao devolver o livro." });
   }
 });
 
