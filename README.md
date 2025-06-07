@@ -6,10 +6,20 @@ Baixe a pasta .ZIP
 Descompacte e abra na sua IDE (Recomendado no VSCODE)
 
 ---
+
+## Tecnologias utilizadas
+
+- **Frontend**: React.js
+- **Backend**: Node.js, Express.js
+- **Empacotamento**: Docker
+- **Banco de dados**: MongoDB
+- **ORM**: Mongoose
+- **Outros**: Axios, React Router DOM
+
 ## Verifique os Requisitos
 
 - [##ESSENCIAL##] Node.js instalado
-- [##OPCIONAL##]Docker instalado
+- [##OPCIONAL##] Docker instalado (https://www.docker.com/)
 - [##ESSENCIAL##] MongoDB instalado (https://www.mongodb.com/try/download/community)
 - [##ESSENCIAL##] MongoDB Compass instalado para acessar Banco LOCALMENTE (https://www.mongodb.com/try/download/compass)
 - Possuir conta no MongoDB Atlas para acessar o Banco pela INTERNET/ONLINE (https://www.mongodb.com/products/platform/atlas-database)
