@@ -20,11 +20,16 @@ Descompacte e abra na sua IDE (Recomendado no VSCODE)
 
 =+ 1º OPÇÃO: (Com Docker instalado) =+
 
- 1.abra o terminal na pasta bookboxed e digite "docker compose up --build"
+1.Com MongoDB e MongoDB Compass Instalado
+  - No MongoDB Compass adicione uma nova conexão e
+    - No campo NAME: "localhost:27017"
+    - No campo  URI copie "mongodb://localhost:27017/bookboxed"
 
- 2.Acesse http://localhost:3000
+2.abra o terminal na pasta bookboxed e digite "docker compose up --build"
 
- 3. Teste as funções da BIBLIOTECA VIRTUAL BOOKBOXED
+3.Acesse http://localhost:3000
+
+4. Teste as funções da BIBLIOTECA VIRTUAL BOOKBOXED
 
 =+ 2º OPÇÃO: (Sem Docker) +=
 
